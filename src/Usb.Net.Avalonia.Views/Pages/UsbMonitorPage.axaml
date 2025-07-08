@@ -1,0 +1,65 @@
+<controls:ControlBase
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:i="https://github.com/projektanker/icons.avalonia"
+	xmlns:controls="clr-namespace:Usb.Net.Avalonia.Views.Controls;assembly=Usb.Net.Avalonia.Views"
+	xmlns:viewModels="clr-namespace:Usb.Net.Avalonia.ViewModels.Pages;assembly=Usb.Net.Avalonia.ViewModels"
+	mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+	x:Class="Usb.Net.Avalonia.Views.Pages.UsbMonitorPage"
+	x:DataType="viewModels:UsbMonitorPageViewModel">
+	<Design.DataContext>
+		<viewModels:UsbMonitorPageViewModel />
+	</Design.DataContext>
+
+	<Grid
+		Margin="10"
+		RowDefinitions="40, 10, *">
+		<StackPanel
+			Grid.Row="0"
+			Spacing="10"
+			Orientation="Horizontal">
+			<Button
+				Command="{Binding NavigateToHomeCommand}">
+				<i:Icon
+					Value="fa-solid fa-house" />
+			</Button>
+
+			<Button
+				IsVisible="{Binding IsMonitoring, Converter={StaticResource BoolInvertConverter}, Mode=OneWay}"
+				Command="{Binding StartMonitoringCommand, Mode=OneTime}">
+				<TextBlock
+					Text="Start monitoring" />
+			</Button>
+
+			<Button
+				IsVisible="{Binding IsMonitoring, Mode=OneWay}"
+				Command="{Binding StopMonitoringCommand, Mode=OneTime}">
+				<TextBlock
+					Text="Stop monitoring" />
+			</Button>
+
+			<Button
+				Command="{Binding ClearLogCommand, Mode=OneTime}">
+				<TextBlock
+					Text="Clear log" />
+			</Button>
+		</StackPanel>
+
+		<ListBox
+			Grid.Row="2"
+			ItemsSource="{Binding Logs, Mode=OneWay}"
+			ScrollViewer.HorizontalScrollBarVisibility="Auto">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<TextBlock
+						Text="{Binding}"
+						FontWeight="Bold"
+						VerticalAlignment="Center"
+						Foreground="{Binding, Converter={StaticResource DeviceConnectionStateToBrushConverter}}" />
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+	</Grid>
+</controls:ControlBase>

@@ -1,0 +1,9 @@
+<ResourceDictionary 
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:converters="clr-namespace:Usb.Net.Avalonia.Views.Converters">
+	<converters:BoolInvertConverter
+		x:Key="BoolInvertConverter" />
+	<converters:DeviceConnectionStateToBrushConverter
+		x:Key="DeviceConnectionStateToBrushConverter" />
+</ResourceDictionary>

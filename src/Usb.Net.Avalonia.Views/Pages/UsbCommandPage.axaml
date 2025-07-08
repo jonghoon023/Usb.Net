@@ -1,0 +1,95 @@
+<controls:ControlBase
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:i="https://github.com/projektanker/icons.avalonia"
+	xmlns:controls="clr-namespace:Usb.Net.Avalonia.Views.Controls;assembly=Usb.Net.Avalonia.Views"
+	xmlns:viewModels="clr-namespace:Usb.Net.Avalonia.ViewModels.Pages;assembly=Usb.Net.Avalonia.ViewModels"
+	mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+	x:Class="Usb.Net.Avalonia.Views.Pages.UsbCommandPage"
+	x:DataType="viewModels:UsbCommandPageViewModel">
+	<Design.DataContext>
+		<viewModels:UsbCommandPageViewModel />
+	</Design.DataContext>
+
+	<Grid
+		Margin="10"
+		RowDefinitions="40, 10, 40, 10, 40, 10, *">
+		<Grid
+			ColumnDefinitions="Auto, 10, *, 10, Auto">
+			<Button
+				Grid.Column="0"
+				Command="{Binding NavigateToHomeCommand}">
+				<i:Icon
+					Value="fa-solid fa-house" />
+			</Button>
+
+			<controls:ComboBox
+				Grid.Column="2"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Stretch"
+				ItemsSource="{Binding DeviceInfos, Mode=OneWay}"
+				SelectionChangedCommand="{Binding SelectionChangedCommand, Mode=OneTime}" />
+
+			<Button
+				Grid.Column="4"
+				Content="Refresh"
+				VerticalAlignment="Center"
+				Command="{Binding RefreshCommand, Mode=OneTime}" />
+		</Grid>
+
+		<Grid
+			Grid.Row="2"
+			ColumnDefinitions="*, 10, *, 10, *">
+			<Button
+				Grid.Column="0"
+				HorizontalAlignment="Stretch"
+				Command="{Binding WriteCommand, Mode=OneTime}"
+				IsEnabled="{Binding DeviceInfo, Converter={x:Static ObjectConverters.IsNotNull}}">
+				<TextBlock
+					Text="Write"
+					FontWeight="Bold"
+					TextAlignment="Center" />
+			</Button>
+
+			<Button
+				Grid.Column="2"
+				HorizontalAlignment="Stretch"
+				Command="{Binding ReadCommand, Mode=OneTime}"
+				IsEnabled="{Binding DeviceInfo, Converter={x:Static ObjectConverters.IsNotNull}}">
+				<TextBlock
+					Text="Read"
+					FontWeight="Bold"
+					TextAlignment="Center" />
+			</Button>
+
+			<Button
+				Grid.Column="4"
+				HorizontalAlignment="Stretch"
+				Command="{Binding WriteThenReadCommand, Mode=OneTime}"
+				IsEnabled="{Binding DeviceInfo, Converter={x:Static ObjectConverters.IsNotNull}}">
+				<TextBlock
+					Text="Write and Read"
+					FontWeight="Bold"
+					TextAlignment="Center" />
+			</Button>
+		</Grid>
+
+		<controls:TextBox
+			Grid.Row="4"
+			VerticalContentAlignment="Center"
+			Watermark="Please enter the command to send to the device. (ex: 1A 2B 3C)"
+			TextChangedCommand="{Binding TextChangedCommand, Mode=OneTime}" />
+
+		<HeaderedContentControl
+			Grid.Row="6"
+			Header="Result"
+			BorderThickness="1">
+			<TextBlock
+				FontSize="20"
+				TextWrapping="Wrap"
+				Text="{Binding Result, Mode=OneWay}" />
+		</HeaderedContentControl>
+	</Grid>
+</controls:ControlBase>

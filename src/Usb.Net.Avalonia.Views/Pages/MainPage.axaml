@@ -1,0 +1,44 @@
+<controls:ControlBase
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:controls="clr-namespace:Usb.Net.Avalonia.Views.Controls;assembly=Usb.Net.Avalonia.Views"
+	xmlns:viewModels="clr-namespace:Usb.Net.Avalonia.ViewModels.Pages;assembly=Usb.Net.Avalonia.ViewModels"
+	mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+	x:Class="Usb.Net.Avalonia.Views.Pages.MainPage"
+	x:DataType="viewModels:MainPageViewModel">
+	<Design.DataContext>
+		<viewModels:MainPageViewModel />
+	</Design.DataContext>
+
+	<Grid
+		Margin="10"
+		ColumnDefinitions="*, 10, *">
+		<Button
+			Grid.Column="0"
+			VerticalAlignment="Stretch"
+			HorizontalAlignment="Stretch"
+			Command="{Binding NavigateToUsbMonitorPageCommand, Mode=OneTime}">
+			<TextBlock
+				FontSize="40"
+				TextAlignment="Center"
+				Text="Go to Usb USB Monitor Page"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Center" />
+		</Button>
+
+		<Button
+			Grid.Column="2"
+			VerticalAlignment="Stretch"
+			HorizontalAlignment="Stretch"
+			Command="{Binding NavigateToUsbCommandPageCommand, Mode=OneTime}">
+			<TextBlock
+				FontSize="40"
+				TextAlignment="Center"
+				Text="Go to Usb USB Command Page"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Center" />
+		</Button>
+	</Grid>
+</controls:ControlBase>
